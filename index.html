@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLE - Didáctica de la Informática</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            transform: translateY(0);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-card:hover::before {
+            left: 100%;
+        }
+
+        .login-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .university-logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #1e3c72, #2a5298, #667eea);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite alternate;
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 10px 30px rgba(30, 60, 114, 0.4); }
+            100% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(30, 60, 114, 0.6); }
+        }
+
+        .login-title {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 32px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.5); }
+        }
+
+        .login-subtitle {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .login-course {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 25px;
+            font-size: 18px;
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .student-name {
+            background: linear-gradient(45deg, #ffeaa7, #fdcb6e, #e17055);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: colorShift 3s ease-in-out infinite;
+        }
+
+        @keyframes colorShift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+        }
+
+        .login-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .login-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .main-container {
+            display: none;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .tab {
+            background: white;
+            border: 2px solid #e9ecef;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #666;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .tab:hover {
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content h2 {
+            color: #1e3c72;
+            margin-bottom: 25px;
+            font-size: 28px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .content h2::before {
+            content: "📚";
+            margin-right: 15px;
+            font-size: 32px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .content h3 {
+            color: #2a5298;
+            margin: 30px 0 20px 0;
+            font-size: 22px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .content h3::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 20px;
+            animation: pulse 1.5s ease-in-out infinite alternate;
+        }
+
+        .content p {
+            margin-bottom: 20px;
+            text-align: justify;
+            line-height: 2;
+            position: relative;
+            padding: 15px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .content p:hover {
+            border-left-color: #667eea;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.05), transparent);
+            transform: translateX(10px);
+        }
+
+        .content ul {
+            margin: 20px 0 20px 40px;
+            position: relative;
+        }
+
+        .content li {
+            margin-bottom: 12px;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .content li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .content li:hover {
+            color: #1e3c72;
+            transform: translateX(10px);
+            background: linear-gradient(90deg, rgba(40, 167, 69, 0.1), transparent);
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 6px solid #667eea;
+            position: relative;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: "💡";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            opacity: 0.7;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .highlight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+            border-left-width: 10px;
+        }
+
+        .highlight-box h4 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight-box h4::before {
+            content: "🎯";
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .demo-group {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-group::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .demo-group:hover::before {
+            left: 100%;
+        }
+
+        .demo-group:hover {
+            border-color: #667eea;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .demo-group h4 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .demo-group h4::before {
+            content: "🚀";
+            margin-right: 15px;
+            font-size: 24px;
+            animation: bounce 2s infinite;
+        }
+
+        .link-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        .reflection {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border-left: 5px solid #e17055;
+        }
+
+        .reflection h3 {
+            color: #d63031;
+            margin-bottom: 15px;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff7675, #fd79a8);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 118, 117, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 118, 117, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                min-width: auto;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla de Login -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <div class="university-logo">UNL</div>
+            <h1 class="login-title">Universidad Nacional de Loja</h1>
+            <h2 class="login-subtitle">Didáctica de la Informática</h2>
+            <p class="login-course">Pedagogía de las Ciencias Experimentales - Informática</p>
+            <p class="student-name">Ronald Paul Jaramillo Gonzaga</p>
+            <button class="login-btn" onclick="login()">Ingresar al PLE</button>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div id="mainContent" class="main-container">
+        <button class="back-btn" onclick="logout()">← Salir</button>
+        
+        <div class="header">
+            <h1>Entorno Personal de Aprendizaje (PLE)</h1>
+            <p>Didáctica de la Informática - Unidad 3</p>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showContent('marco-comun')">Marco Común</div>
+            <div class="tab" onclick="showContent('competencias')">Competencias Digitales</div>
+            <div class="tab" onclick="showContent('objetos')">Objetos de Aprendizaje</div>
+            <div class="tab" onclick="showContent('software')">Software Educativo</div>
+            <div class="tab" onclick="showContent('proceso')">Proceso E-A</div>
+            <div class="tab" onclick="showContent('caracteristicas')">Características S.E</div>
+            <div class="tab" onclick="showContent('tipologias')">Tipologías</div>
+            <div class="tab" onclick="showContent('clasificacion')">Clasificación S.E</div>
+            <div class="tab" onclick="showContent('clases-demo')">Clases Demostrativas</div>
+            <div class="tab" onclick="showContent('reflexion')">Reflexión Personal</div>
+        </div>
+
+        <div class="content">
+            <!-- Marco Común -->
+            <div id="marco-comun" class="content-section active">
+                <h2>Marco Común de Competencias Digitales</h2>
+                <p>El Marco Común de Competencias Digitales establece las bases fundamentales para el desarrollo de habilidades digitales en el ámbito educativo. Este marco proporciona una estructura sistemática para comprender, evaluar y desarrollar las competencias necesarias en la era digital.</p>
+                
+                <div class="highlight-box">
+                    <h3>Importancia del Marco Común</h3>
+                    <p>El marco común facilita la estandarización de criterios y la creación de rutas de aprendizaje coherentes que permitan a educadores y estudiantes navegar eficazmente en el ecosistema digital educativo.</p>
+                </div>
+
+                <h3>Componentes Principales</h3>
+                <ul>
+                    <li><strong>Alfabetización Digital:</strong> Capacidad básica para usar tecnologías digitales de manera efectiva</li>
+                    <li><strong>Pensamiento Computacional:</strong> Habilidades para resolver problemas usando conceptos fundamentales de la informática</li>
+                    <li><strong>Ciudadanía Digital:</strong> Comportamiento ético y responsable en entornos digitales</li>
+                    <li><strong>Creatividad Digital:</strong> Uso innovador de herramientas digitales para crear contenido original</li>
+                    <li><strong>Colaboración Digital:</strong> Trabajo efectivo en equipos usando plataformas y herramientas colaborativas</li>
+                </ul>
+
+                <h3>Aplicación en el Contexto Educativo</h3>
+                <p>La implementación del marco común requiere una aproximación integrada que considere tanto las necesidades específicas del contexto educativo como las competencias digitales que los estudiantes necesitan desarrollar para su futuro académico y profesional.</p>
+            </div>
+
+            <!-- Competencias Digitales -->
+            <div id="competencias" class="content-section">
+                <h2>Competencias Digitales</h2>
+                <p>Las competencias digitales constituyen el conjunto de conocimientos, habilidades y actitudes necesarias para utilizar las tecnologías digitales de manera crítica, colaborativa y creativa en el proceso educativo.</p>
+
+                <h3>Dimensiones de las Competencias Digitales</h3>
+                
+                <div class="highlight-box">
+                    <h4>1. Competencias Técnicas</h4>
+                    <ul>
+                        <li>Manejo de hardware y software educativo</li>
+                        <li>Navegación segura en internet</li>
+                        <li>Uso de aplicaciones y plataformas digitales</li>
+                        <li>Resolución de problemas técnicos básicos</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>2. Competencias Pedagógicas</h4>
+                    <ul>
+                        <li>Integración efectiva de tecnología en el currículo</li>
+                        <li>Diseño de experiencias de aprendizaje digital</li>
+                        <li>Evaluación digital y retroalimentación</li>
+                        <li>Personalización del aprendizaje con tecnología</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>3. Competencias Éticas y Sociales</h4>
+                    <ul>
+                        <li>Uso responsable de información digital</li>
+                        <li>Respeto por la propiedad intelectual</li>
+                        <li>Promoción de la inclusión digital</li>
+                        <li>Desarrollo del pensamiento crítico digital</li>
+                    </ul>
+                </div>
+
+                <h3>Desarrollo Progresivo</h3>
+                <p>Las competencias digitales se desarrollan de manera progresiva, desde niveles básicos de alfabetización digital hasta niveles avanzados de innovación y liderazgo digital en contextos educativos específicos.</p>
+            </div>
+
+            <!-- Objetos de Aprendizaje -->
+            <div id="objetos" class="content-section">
+                <h2>Objetos de Aprendizaje / Material Digital</h2>
+                <p>Los objetos de aprendizaje son recursos digitales reutilizables, interoperables y accesibles que pueden ser utilizados para apoyar el proceso de enseñanza-aprendizaje en diferentes contextos educativos.</p>
+
+                <h3>Características Fundamentales</h3>
+                <ul>
+                    <li><strong>Reutilización:</strong> Pueden ser utilizados en múltiples contextos educativos sin modificaciones significativas</li>
+                    <li><strong>Interoperabilidad:</strong> Compatible con diferentes plataformas y sistemas de gestión del aprendizaje</li>
+                    <li><strong>Accesibilidad:</strong> Diseñados para ser accesibles a estudiantes con diversas necesidades y capacidades</li>
+                    <li><strong>Durabilidad:</strong> Mantienen su funcionalidad a pesar de los cambios tecnológicos</li>
+                    <li><strong>Granularidad:</strong> Tienen un nivel apropiado de detalle para objetivos específicos de aprendizaje</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h3>Tipos de Objetos de Aprendizaje</h3>
+                    <ul>
+                        <li><strong>Recursos Informativos:</strong> Documentos, presentaciones, infografías, videos explicativos</li>
+                        <li><strong>Recursos Interactivos:</strong> Simulaciones, animaciones, juegos educativos, laboratorios virtuales</li>
+                        <li><strong>Recursos de Práctica:</strong> Ejercicios interactivos, cuestionarios, casos de estudio</li>
+                        <li><strong>Recursos de Evaluación:</strong> Pruebas adaptativas, rúbricas digitales, portfolios electrónicos</li>
+                    </ul>
+                </div>
+
+                <h3>Proceso de Desarrollo</h3>
+                <p>El desarrollo de objetos de aprendizaje efectivos requiere un proceso sistemático que incluya análisis de necesidades, diseño instruccional, desarrollo técnico, evaluación y mejora continua basada en retroalimentación de usuarios.</p>
+
+                <h3>Metadatos y Catalogación</h3>
+                <p>Los metadatos son esenciales para la efectiva catalogación, búsqueda y reutilización de objetos de aprendizaje. Incluyen información sobre contenido, contexto pedagógico, aspectos técnicos y derechos de uso.</p>
+            </div>
+
+            <!-- Software Educativo -->
+            <div id="software" class="content-section">
+                <h2>Definición de Software Educativo</h2>
+                <p>El software educativo se define como cualquier programa o aplicación informática diseñada específicamente para facilitar los procesos de enseñanza y aprendizaje, proporcionando herramientas, recursos y entornos que apoyen el desarrollo de competencias y conocimientos.</p>
+
+                <h3>Características del Software Educativo</h3>
+                <div class="highlight-box">
+                    <ul>
+                        <li><strong>Propósito Pedagógico:</strong> Diseñado con objetivos educativos específicos y claros</li>
+                        <li><strong>Interactividad:</strong> Permite la participación activa del usuario en el proceso de aprendizaje</li>
+                        <li><strong>Adaptabilidad:</strong> Se ajusta a diferentes niveles, estilos y ritmos de aprendizaje</li>
+                        <li><strong>Retroalimentación:</strong> Proporciona respuestas inmediatas y constructivas al usuario</li>
+                        <li><strong>Motivación:</strong> Incluye elementos que mantienen el interés y compromiso del estudiante</li>
+                        <li><strong>Facilidad de Uso:</strong> Interface intuitiva y accesible para el usuario objetivo</li>
+                    </ul>
+                </div>
+
+                <h3>Clasificación por Función Pedagógica</h3>
+                <ul>
+                    <li><strong>Software de Instrucción:</strong> Tutoriales, lecciones programadas, cursos en línea</li>
+                    <li><strong>Software de Práctica:</strong> Ejercitadores, simuladores, laboratorios virtuales</li>
+                    <li><strong>Software de Evaluación:</strong> Sistemas de evaluación, generadores de exámenes</li>
+                    <li><strong>Software de Construcción:</strong> Herramientas de autor, editores multimedia</li>
+                    <li><strong>Software de Comunicación:</strong> Plataformas colaborativas, foros educativos</li>
+                </ul>
+
+                <h3>Criterios de Calidad</h3>
+                <p>La evaluación de software educativo debe considerar aspectos técnicos (funcionalidad, usabilidad, compatibilidad), pedagógicos (coherencia curricular, estrategias didácticas, evaluación) y estéticos (diseño visual, organización de contenidos, navegación).</p>
+            </div>
+
+            <!-- Proceso de Enseñanza-Aprendizaje -->
+            <div id="proceso" class="content-section">
+                <h2>Partes Esenciales del Proceso de Enseñanza-Aprendizaje</h2>
+                <p>El proceso de enseñanza-aprendizaje mediado por tecnología implica una reconfiguración de los elementos tradicionales del acto educativo, integrando herramientas digitales que potencien la construcción de conocimiento.</p>
+
+                <h3>Componentes Fundamentales</h3>
+                
+                <div class="highlight-box">
+                    <h4>1. El Estudiante Digital</h4>
+                    <ul>
+                        <li>Desarrolla autonomía en su aprendizaje</li>
+                        <li>Construye conocimiento de manera colaborativa</li>
+                        <li>Utiliza herramientas digitales para investigar y crear</li>
+                        <li>Desarrolla pensamiento crítico sobre información digital</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>2. El Docente Facilitador</h4>
+                    <ul>
+                        <li>Diseña experiencias de aprendizaje significativas</li>
+                        <li>Integra tecnología de manera pedagógicamente fundamentada</li>
+                        <li>Facilita la construcción colaborativa del conocimiento</li>
+                        <li>Evalúa y retroalimenta de manera continua</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>3. Contenidos Digitales</h4>
+                    <ul>
+                        <li>Multimediales e interactivos</li>
+                        <li>Adaptables a diferentes estilos de aprendizaje</li>
+                        <li>Actualizables y reutilizables</li>
+                        <li>Accesibles desde múltiples dispositivos</li>
+                    </ul>
+                </div>
+
+                <h3>Metodologías Digitales</h3>
+                <ul>
+                    <li><strong>Aprendizaje Basado en Proyectos Digitales:</strong> Integra herramientas tecnológicas en proyectos reales</li>
+                    <li><strong>Flipped Classroom:</strong> Invierte el modelo tradicional usando recursos digitales</li>
+                    <li><strong>Gamificación:</strong> Incorpora elementos de juego para motivar el aprendizaje</li>
+                    <li><strong>Aprendizaje Colaborativo en Red:</strong> Facilita la construcción social del conocimiento</li>
+                </ul>
+
+                <h3>Evaluación en Entornos Digitales</h3>
+                <p>La evaluación digital permite diversificar instrumentos y estrategias, ofreciendo retroalimentación inmediata, seguimiento personalizado y evidencia del proceso de aprendizaje a través de portfolios digitales, rúbricas interactivas y analytics de aprendizaje.</p>
+            </div>
+
+            <!-- Características del Software Educativo -->
+            <div id="caracteristicas" class="content-section">
+                <h2>Características del Software Educativo</h2>
+                <p>Las características del software educativo determinan su efectividad y adecuación para diferentes contextos y objetivos de aprendizaje. Estas características deben evaluarse de manera integral para garantizar una experiencia educativa de calidad.</p>
+
+                <h3>Características Técnicas</h3>
+                <div class="highlight-box">
+                    <ul>
+                        <li><strong>Estabilidad:</strong> Funcionamiento confiable sin errores críticos</li>
+                        <li><strong>Compatibilidad:</strong> Opera en diferentes sistemas operativos y dispositivos</li>
+                        <li><strong>Escalabilidad:</strong> Soporta múltiples usuarios simultáneos</li>
+                        <li><strong>Seguridad:</strong> Protege datos e información del usuario</li>
+                        <li><strong>Mantenibilidad:</strong> Facilita actualizaciones y correcciones</li>
+                    </ul>
+                </div>
+
+                <h3>Características Pedagógicas</h3>
+                <div class="highlight-box">
+                    <ul>
+                        <li><strong>Fundamentación Didáctica:</strong> Basado en teorías del aprendizaje sólidas</li>
+                        <li><strong>Objetivos Claros:</strong> Define explícitamente lo que el estudiante debe lograr</li>
+                        <li><strong>Secuencialidad:</strong> Organiza contenidos de manera lógica y progresiva</li>
+                        <li><strong>Individualización:</strong> Se adapta a diferentes ritmos y estilos</li>
+                        <li><strong>Retroalimentación Efectiva:</strong> Proporciona respuestas inmediatas y constructivas</li>
+                    </ul>
+                </div>
+
+                <h3>Características de Usabilidad</h3>
+                <ul>
+                    <li><strong>Interface Intuitiva:</strong> Navegación clara y comprensible</li>
+                    <li><strong>Accesibilidad:</strong> Disponible para usuarios con diferentes capacidades</li>
+                    <li><strong>Diseño Atractivo:</strong> Estéticamente agradable y motivador</li>
+                    <li><strong>Tiempo de Respuesta:</strong> Reacciona rápidamente a las acciones del usuario</li>
+                    <li><strong>Ayuda Contextual:</strong> Ofrece asistencia cuando es necesaria</li>
+                </ul>
+
+                <h3>Características Motivacionales</h3>
+                <p>El software educativo efectivo incorpora elementos que mantienen el interés del estudiante: narrativas envolventes, desafíos progresivos, reconocimientos y logros, elementos lúdicos apropiados y conexión con intereses personales del estudiante.</p>
+            </div>
+
+            <!-- Tipologías -->
+            <div id="tipologias" class="content-section">
+                <h2>Tipologías de Software Educativo</h2>
+                <p>Las tipologías de software educativo proporcionan una clasificación sistemática que ayuda a seleccionar la herramienta más adecuada según los objetivos pedagógicos, el contexto de uso y las características de los estudiantes.</p>
+
+                <h3>Clasificación por Enfoque Pedagógico</h3>
+                
+                <div class="highlight-box">
+                    <h4>1. Software Conductista</h4>
+                    <ul>
+                        <li><strong>Tutoriales:</strong> Presentan información de manera lineal y estructurada</li>
+                        <li><strong>Ejercitadores:</strong> Refuerzan conocimientos mediante práctica repetitiva</li>
+                        <li><strong>Sistemas de Instrucción Programada:</strong> Secuencias predefinidas con retroalimentación</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>2. Software Cognitivista</h4>
+                    <ul>
+                        <li><strong>Simuladores:</strong> Recrean fenómenos o situaciones para exploración</li>
+                        <li><strong>Modeladores:</strong> Permiten construir y manipular modelos conceptuales</li>
+                        <li><strong>Sistemas Expertos Educativos:</strong> Guían el proceso de resolución de problemas</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>3. Software Constructivista</h4>
+                    <ul>
+                        <li><strong>Micromundos:</strong> Entornos exploratorios para construcción de conocimiento</li>
+                        <li><strong>Herramientas de Autor:</strong> Permiten crear contenidos educativos</li>
+                        <li><strong>Entornos Colaborativos:</strong> Facilitan trabajo en equipo y construcción social</li>
+                    </ul>
+                </div>
+
+                <h3>Clasificación por Modalidad de Uso</h3>
+                <ul>
+                    <li><strong>Software Standalone:</strong> Funciona independientemente en un dispositivo</li>
+                    <li><strong>Software en Red:</strong> Requiere conexión y permite colaboración</li>
+                    <li><strong>Software Móvil:</strong> Diseñado específicamente para dispositivos móviles</li>
+                    <li><strong>Software Web:</strong> Accesible a través de navegadores web</li>
+                </ul>
+
+                <h3>Clasificación por Área de Conocimiento</h3>
+                <p>Cada área de conocimiento tiene requerimientos específicos que determinan las características del software más adecuado: software para matemáticas (calculadoras, graficadores), ciencias (laboratorios virtuales, simuladores), lenguaje (procesadores de texto, correctores), ciencias sociales (bases de datos, mapas interactivos).</p>
+            </div>
+
+            <!-- Clasificación del Software Educativo -->
+            <div id="clasificacion" class="content-section">
+                <h2>Clasificación del Software Educativo</h2>
+                <p>La clasificación del software educativo permite una comprensión sistemática de las diferentes categorías y tipos de herramientas digitales disponibles para el proceso educativo, facilitando la selección apropiada según necesidades específicas.</p>
+
+                <h3>Clasificación por Función Didáctica</h3>
+                
+                <div class="highlight-box">
+                    <h4>1. Software de Presentación de Información</h4>
+                    <ul>
+                        <li><strong>Libros Electrónicos:</strong> Textos digitales interactivos con multimedia</li>
+                        <li><strong>Enciclopedias Digitales:</strong> Bases de conocimiento organizadas temáticamente</li>
+                        <li><strong>Documentales Interactivos:</strong> Contenido audiovisual con navegación no lineal</li>
+                        <li><strong>Bases de Datos Educativas:</strong> Repositorios organizados de información específica</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>2. Software de Construcción y Creación</h4>
+                    <ul>
+                        <li><strong>Editores Multimedia:</strong> Herramientas para crear contenido audiovisual</li>
+                        <li><strong>Lenguajes de Programación Educativos:</strong> Scratch, Logo, Alice</li>
+                        <li><strong>Herramientas de Diseño:</strong> Software para crear gráficos, presentaciones</li>
+                        <li><strong>Plataformas de Autor:</strong> Sistemas para desarrollar cursos y lecciones</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>3. Software de Evaluación y Seguimiento</h4>
+                    <ul>
+                        <li><strong>Sistemas de Evaluación Automatizada:</strong> Generan y califican pruebas</li>
+                        <li><strong>Portfolios Digitales:</strong> Recopilan evidencias del aprendizaje</li>
+                        <li><strong>Analytics de Aprendizaje:</strong> Analizan datos del proceso educativo</li>
+                        <li><strong>Sistemas de Retroalimentación:</strong> Proporcionan respuestas personalizadas</li>
+                    </ul>
+                </div>
+
+                <h3>Clasificación por Grado de Control del Estudiante</h3>
+                <ul>
+                    <li><strong>Control Mínimo:</strong> Tutoriales lineales, ejercitadores dirigidos</li>
+                    <li><strong>Control Medio:</strong> Simulaciones con opciones limitadas, hipertextos</li>
+                    <li><strong>Control Máximo:</strong> Herramientas abiertas, micromundos exploratorios</li>
+                </ul>
+
+                <h3>Criterios de Selección</h3>
+                <p>La selección del software educativo apropiado debe considerar: objetivos de aprendizaje específicos, características del grupo destinatario, recursos tecnológicos disponibles, tiempo de implementación, costo-beneficio y posibilidades de integración curricular.</p>
+            </div>
+
+            <!-- Clases Demostrativas -->
+            <div id="clases-demo" class="content-section">
+                <h2>Temas de Clases Demostrativas 2025</h2>
+                <p>Las clases demostrativas constituyen una metodología práctica para evidenciar la aplicación efectiva de tecnologías educativas en contextos reales de enseñanza-aprendizaje.</p>
+
+                <div class="demo-group">
+                    <h4>GRUPO 1: Chatbots en Educación - Diseño e Implementación en el Aula</h4>
+                    <p>Los chatbots educativos representan una innovación tecnológica que permite la automatización de procesos de enseñanza y tutoría personalizada. Su implementación en el aula requiere consideraciones pedagógicas específicas, especialmente la importancia de procesos colaborativos en su diseño.</p>
+                    <p><strong>Aspectos clave:</strong></p>
+                    <ul>
+                        <li>Diseño centrado en el usuario estudiantil</li>
+                        <li>Integración con objetivos curriculares específicos</li>
+                        <li>Consideración de procesos colaborativos en el desarrollo</li>
+                        <li>Evaluación de efectividad pedagógica</li>
+                    </ul>
+                    <a href="https://www.lmi-cat.net/sites/default/files/Chatbots_en_Educacion.pdf" class="link-btn" target="_blank">Ver Recurso</a>
+                </div>
+
+                <div class="demo-group">
+                    <h4>GRUPO 2: Diseño Universal para el Aprendizaje (DUA)</h4>
+                    <p>El Diseño Universal para el Aprendizaje es un marco educativo que busca optimizar la enseñanza para todas las personas, proporcionando múltiples medios de representación, participación y expresión para acomodar las diferencias individuales en el aprendizaje.</p>
+                    <p><strong>Principios fundamentales del DUA:</strong></p>
+                    <ul>
+                        <li>Múltiples medios de representación (el "qué" del aprendizaje)</li>
+                        <li>Múltiples medios de participación (el "por qué" del aprendizaje)</li>
+                        <li>Múltiples medios de expresión (el "cómo" del aprendizaje)</li>
+                    </ul>
+                    <a href="https://educacion.gob.ec/wp-content/uploads/downloads/2023/04/ABRIL-2023.pdf" class="link-btn" target="_blank">Ver Recurso</a>
+                </div>
+
+                <div class="demo-group">
+                    <h4>GRUPO 3: Ciudadanía Digital - Protección y Seguridad</h4>
+                    <p>La dimensión de Protección y Seguridad en ciudadanía digital aborda las competencias necesarias para navegar de manera segura en entornos digitales, protegiendo datos personales y manteniendo la integridad en línea.</p>
+                    <p><strong>Competencias específicas:</strong></p>
+                    <ul>
+                        <li>Configuración de privacidad en redes sociales</li>
+                        <li>Reconocimiento de amenazas digitales</li>
+                        <li>Uso seguro de contraseñas y autenticación</li>
+                        <li>Protección de información personal y familiar</li>
+                    </ul>
+                    <a href="https://recursos.educacion.gob.ec/wp-content/uploads/curriculo/4.%20GM_ciudadania_digital_bachillerato.pdf" class="link-btn" target="_blank">Ver Recurso</a>
+                </div>
+
+                <div class="demo-group">
+                    <h4>GRUPO 4: Ciudadanía Digital - Reflexión y Análisis</h4>
+                    <p>Esta dimensión desarrolla la capacidad crítica para evaluar información digital, analizar fuentes, detectar noticias falsas y formar opiniones fundamentadas en la era de la información.</p>
+                    <p><strong>Habilidades desarrolladas:</strong></p>
+                    <ul>
+                        <li>Evaluación crítica de fuentes digitales</li>
+                        <li>Análisis de sesgos en medios digitales</li>
+                        <li>Detección de desinformación y fake news</li>
+                        <li>Construcción de argumentos basados en evidencia digital</li>
+                    </ul>
+                    <a href="https://recursos.educacion.gob.ec/wp-content/uploads/curriculo/4.%20GM_ciudadania_digital_bachillerato.pdf" class="link-btn" target="_blank">Ver Recurso</a>
+                </div>
+
+                <div class="demo-group">
+                    <h4>GRUPO 5: Ciudadanía Digital - Derechos Digitales</h4>
+                    <p>Los derechos digitales constituyen el conjunto de garantías fundamentales que tienen las personas en el entorno digital, incluyendo privacidad, acceso a la información, libertad de expresión y no discriminación digital.</p>
+                    <p><strong>Derechos fundamentales:</strong></p>
+                    <ul>
+                        <li>Derecho a la privacidad y protección de datos</li>
+                        <li>Derecho de acceso a internet y tecnologías</li>
+                        <li>Derecho a la libertad de expresión digital</li>
+                        <li>Derecho a la no discriminación en espacios digitales</li>
+                    </ul>
+                    <a href="https://recursos.educacion.gob.ec/wp-content/uploads/curriculo/4.%20GM_ciudadania_digital_bachillerato.pdf" class="link-btn" target="_blank">Ver Recurso</a>
+                </div>
+
+                <div class="demo-group">
+                    <h4>GRUPO 6: Uso Pedagógico de Herramientas de IA</h4>
+                    <p>La integración pedagógica de herramientas de Inteligencia Artificial en el proceso educativo requiere una comprensión profunda de sus potencialidades y limitaciones, así como estrategias específicas para su implementación efectiva.</p>
+                    <p><strong>Aplicaciones pedagógicas:</strong></p>
+                    <ul>
+                        <li>Personalización del aprendizaje mediante IA adaptativa</li>
+                        <li>Automatización de procesos de evaluación y retroalimentación</li>
+                        <li>Generación de contenidos educativos personalizados</li>
+                        <li>Análisis predictivo del rendimiento estudiantil</li>
+                    </ul>
+                    <a href="https://recursos.educacion.gob.ec/wp-content/uploads/REDA/AED/orientaciones_uso_pedag%C3%B3gico_ia.pdf" class="link-btn" target="_blank">Ver Recurso</a>
+                </div>
+
+                <div class="demo-group">
+                    <h4>GRUPO 7: Herramientas y Recursos de IA para Docentes</h4>
+                    <p>Este grupo se enfoca en las herramientas específicas de Inteligencia Artificial disponibles para docentes, proporcionando estrategias prácticas para su implementación en diferentes contextos educativos.</p>
+                    <p><strong>Herramientas destacadas:</strong></p>
+                    <ul>
+                        <li>Plataformas de creación de contenido asistido por IA</li>
+                        <li>Sistemas de tutoría inteligente</li>
+                        <li>Herramientas de análisis de texto y escritura</li>
+                        <li>Asistentes virtuales para gestión educativa</li>
+                    </ul>
+                    <a href="https://binario.com.ec/wp-content/uploads/2024/08/Libro-ESTRATEGIAS-DE-LA-IA.pdf" class="link-btn" target="_blank">Ver Recurso</a>
+                </div>
+
+                <div class="demo-group">
+                    <h4>GRUPO 8: Tecnologías Digitales para la Evaluación en Línea</h4>
+                    <p>Las tecnologías digitales han transformado los procesos de evaluación educativa, ofreciendo nuevas posibilidades para la medición, seguimiento y retroalimentación del aprendizaje estudiantil de manera más eficiente y precisa.</p>
+                    <p><strong>Innovaciones en evaluación digital:</strong></p>
+                    <ul>
+                        <li>Sistemas adaptativos de evaluación</li>
+                        <li>Análisis automático de respuestas abiertas</li>
+                        <li>Evaluación continua mediante learning analytics</li>
+                        <li>Portafolios digitales y evaluación auténtica</li>
+                    </ul>
+                    <a href="https://binario.com.ec/wp-content/uploads/2024/08/Libro-ESTRATEGIAS-DE-LA-IA.pdf" class="link-btn" target="_blank">Ver Recurso (Pág. 184)</a>
+                </div>
+
+                <div class="demo-group">
+                    <h4>GRUPO 9: Aprendizaje Ubicuo</h4>
+                    <p>El aprendizaje ubicuo representa un paradigma educativo donde el aprendizaje ocurre en cualquier lugar y momento, aprovechando las tecnologías móviles y la conectividad permanente para crear experiencias educativas continuas y contextualizadas.</p>
+                    <p><strong>Características del aprendizaje ubicuo:</strong></p>
+                    <ul>
+                        <li>Acceso permanente a recursos de aprendizaje</li>
+                        <li>Contextualización del aprendizaje en situaciones reales</li>
+                        <li>Integración de espacios formales e informales de aprendizaje</li>
+                        <li>Personalización basada en ubicación y contexto</li>
+                    </ul>
+                    <a href="https://cienciaytecnologia.uteg.edu.ec/revista/index.php/cienciaytecnologia/article/view/183/247" class="link-btn" target="_blank">Ver Recurso</a>
+                </div>
+            </div>
+
+            <!-- Reflexión Personal -->
+            <div id="reflexion" class="content-section">
+                <div class="reflection">
+                    <h2>Reflexión Personal sobre la Unidad 3</h2>
+                    
+                    <h3>Impacto en mi Formación Docente</h3>
+                    <p>La Unidad 3 de Didáctica de la Informática ha representado un punto de inflexión en mi comprensión sobre la integración efectiva de tecnologías educativas en el proceso de enseñanza-aprendizaje. Como futuro educador en el área de informática, he logrado comprender que la tecnología no es simplemente una herramienta, sino un medio transformador que requiere fundamentación pedagógica sólida.</p>
+
+                    <h3>Aprendizajes Significativos</h3>
+                    <p>El desarrollo del Marco Común de Competencias Digitales me ha permitido reconocer la importancia de un enfoque sistemático para el desarrollo de habilidades digitales. No basta con conocer las herramientas; es fundamental comprender cómo estas se integran en un ecosistema educativo coherente que promueva el aprendizaje significativo.</p>
+
+                    <p>La exploración de los objetos de aprendizaje y material digital me ha revelado la complejidad del diseño instruccional efectivo. Cada recurso debe ser cuidadosamente planificado considerando aspectos de reutilización, interoperabilidad y accesibilidad, lo que requiere una mentalidad de diseño centrado en el estudiante.</p>
+
+                    <h3>Desafíos Identificados</h3>
+                    <p>Uno de los principales desafíos que identifico es la brecha entre el potencial tecnológico y su implementación pedagógicamente fundamentada. Durante el análisis de las tipologías y clasificaciones de software educativo, he comprendido que la selección de herramientas debe basarse en criterios pedagógicos claros, no solo en la novedad o complejidad tecnológica.</p>
+
+                    <p>La ciudadanía digital emergió como un aspecto crucial que va más allá del dominio técnico. La formación de ciudadanos digitales responsables, críticos y éticos se convierte en una responsabilidad fundamental del educador contemporáneo, especialmente en el área de informática.</p>
+
+                    <h3>Proyección Profesional</h3>
+                    <p>Los temas de las clases demostrativas, particularmente el uso pedagógico de herramientas de IA y las tecnologías para evaluación en línea, me han mostrado las tendencias futuras de la educación. Como futuro docente, reconozco la necesidad de mantenerme actualizado y desarrollar competencias para integrar estas innovaciones de manera ética y efectiva.</p>
+
+                    <p>El concepto de aprendizaje ubicuo me ha inspirado a repensar los límites tradicionales del aula, visualizando oportunidades para crear experiencias de aprendizaje que trasciendan espacios y tiempos convencionales, aprovechando las posibilidades que ofrecen las tecnologías móviles y la conectividad.</p>
+
+                    <h3>Compromiso con la Excelencia Educativa</h3>
+                    <p>Esta unidad me ha confirmado que ser docente de informática en el siglo XXI implica ser un facilitador del aprendizaje digital, un diseñador de experiencias educativas innovadoras y un formador de ciudadanos digitales responsables. Mi compromiso es continuar desarrollando estas competencias para contribuir significativamente a la transformación educativa de mi comunidad.</p>
+
+                    <p>Finalmente, reconozco que el aprendizaje en este campo es continuo y dinámico. Las tecnologías evolucionan constantemente, pero los principios pedagógicos fundamentales que he aprendido en esta unidad me proporcionan la base sólida para navegar y aprovechar estos cambios en beneficio del aprendizaje estudiantil.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        }
+
+        function logout() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+        }
+
+        function showContent(contentId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remover clase active de todas las pestañas
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(contentId).classList.add('active');
+
+            // Agregar clase active a la pestaña seleccionada
+            event.target.classList.add('active');
+
+            // Scroll al contenido
+            document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Agregar efectos de scroll suave
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    setTimeout(() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
